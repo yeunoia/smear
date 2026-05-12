@@ -8,7 +8,7 @@
     "strict": true,
     "skipLibCheck": true,
     "paths": {
-      "smear": ["../src/index.ts"]
+      "@yeunoia/smear": ["../src/index.ts"]
     }
   },
   "include": ["src"]

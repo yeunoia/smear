@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      smear: resolve(__dirname, "../src/index.ts"),
+      "@yeunoia/smear": resolve(__dirname, "../src/index.ts"),
     },
   },
 })

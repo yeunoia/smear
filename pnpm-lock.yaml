@@ -57,7 +57,7 @@ importers:
 
   demo:
     dependencies:
-      smear:
+      '@yeunoia/smear':
         specifier: workspace:*
         version: link:..
     devDependencies:
