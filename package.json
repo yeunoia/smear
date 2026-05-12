@@ -12,7 +12,8 @@
   },
   "files": ["dist"],
   "scripts": {
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "dev": "pnpm --filter demo dev"
   },
   "peerDependencies": {
     "react": "^18.0.0",

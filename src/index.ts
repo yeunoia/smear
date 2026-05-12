@@ -1,0 +1,1 @@
+export { Smear } from './Smear'
