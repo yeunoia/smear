@@ -1,1 +1,1 @@
-export { Smear } from './Smear'
+export { Smear, type SmearProps } from "./Smear"
