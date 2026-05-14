@@ -4,7 +4,7 @@ import { useContentSize } from "./useContentSize"
 export type SmearProps = {
   children: ReactNode
   /**
-   * @default flat
+   * @default round
    */
   tip?: "round" | "flat"
   /**
@@ -27,7 +27,7 @@ export type SmearProps = {
 
 export const Smear = ({
   children,
-  tip = "flat",
+  tip = "round",
   backgroundColor = "#A4E7D5",
   color = "inherit",
   paddingX = 4,
@@ -36,12 +36,16 @@ export const Smear = ({
   const contentRef = useRef<HTMLSpanElement>(null)
   const { w, h } = useContentSize(contentRef)
 
-  const rx = tip === "flat" ? (h + paddingY) / 2 : 1
+  const rx = tip === "round" ? (h + paddingY) / 2 : 1
 
   return (
     <span
       ref={contentRef}
-      style={{ position: "relative", display: "inline-block" }}
+      style={{
+        position: "relative",
+        display: "inline-block",
+        width: "fit-content",
+      }}
     >
       {w > 0 && h > 0 && (
         <svg
