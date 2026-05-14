@@ -8,7 +8,7 @@ export type SmearProps = {
    */
   tip?: "round" | "flat"
   /**
-   * @default #A4E7D5
+   * @default #A4E7D5B3
    */
   backgroundColor?: string
   /**
@@ -28,7 +28,7 @@ export type SmearProps = {
 export const Smear = ({
   children,
   tip = "round",
-  backgroundColor = "#A4E7D5",
+  backgroundColor = "#A4E7D5B3",
   color = "inherit",
   paddingX = 4,
   paddingY = 2,
@@ -71,8 +71,8 @@ export const Smear = ({
           <rect
             x={-paddingX}
             y={-paddingY}
-            width={w + paddingX}
-            height={h + paddingY}
+            width={w + paddingX * 2}
+            height={h + paddingY * 2}
             rx={rx}
             fill={backgroundColor}
             filter="url(#smear-filter)"
