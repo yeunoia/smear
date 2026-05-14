@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@yeunoia/smear": "workspace:*"
+    "@yeunoia/smear": "latest"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",
