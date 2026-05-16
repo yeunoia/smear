@@ -9,26 +9,26 @@ type LineRect = {
 }
 
 export const useTypeLine = (
-  ref: RefObject<HTMLSpanElement>,
+  anchorRef: RefObject<HTMLSpanElement>,
   textRef: RefObject<HTMLSpanElement>,
   type: ContentType,
 ) => {
   const [rects, setRect] = useState<LineRect[]>([])
 
   useEffect(() => {
-    if (type !== "line" || !ref?.current || !textRef?.current) return
+    if (type !== "line" || !anchorRef?.current || !textRef?.current) return
 
-    const el = ref.current
+    const anchorEl = anchorRef.current
     const textEl = textRef.current
 
     const calculate = () => {
       const range = document.createRange()
       range.selectNodeContents(textEl)
 
-      const outerRect = el.getBoundingClientRect()
+      const anchorRect = anchorEl.getBoundingClientRect()
       const lineRects = Array.from(range.getClientRects()).map((rect) => ({
-        top: rect.top - outerRect.top,
-        left: rect.left - outerRect.left,
+        top: rect.top - anchorRect.top,
+        left: rect.left - anchorRect.left,
         width: rect.width,
         height: rect.height,
       }))
@@ -38,21 +38,21 @@ export const useTypeLine = (
     calculate()
 
     let animationId: number
-    const calculateReady = () => {
+    const scheduleCalculate = () => {
       cancelAnimationFrame(animationId)
       animationId = requestAnimationFrame(calculate)
     }
 
-    const observer = new ResizeObserver(calculateReady)
-    observer.observe(el)
-    window.addEventListener("resize", calculateReady)
+    const observer = new ResizeObserver(scheduleCalculate)
+    observer.observe(textEl)
+    window.addEventListener("resize", scheduleCalculate)
 
     return () => {
       observer.disconnect()
-      window.removeEventListener("resize", calculateReady)
+      window.removeEventListener("resize", scheduleCalculate)
       cancelAnimationFrame(animationId)
     }
-  }, [ref, type])
+  }, [anchorRef, textRef, type])
 
   return { rects }
 }

@@ -11,11 +11,16 @@ export type SmearProps = {
   /**
    * @default round
    */
-  tip?:TipType
+  tip?: TipType
   /**
    * @default box
    */
   type?: ContentType
+  /**
+   * @default 4
+   * recommended range: 1-10
+   */
+  scale?: number
   /**
    * @default #A4E7D5B3
    */
@@ -38,32 +43,86 @@ export const Smear = ({
   children,
   tip = "round",
   type = "box",
+  scale = 4,
   backgroundColor = "#A4E7D5B3",
   color = "inherit",
   paddingX = 4,
   paddingY = 2,
 }: SmearProps) => {
-
-  const contentRef = useRef<HTMLSpanElement>(null)
+  const outerRef = useRef<HTMLSpanElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
 
-  const { w, h } = useTypeBox(contentRef, type)
-  const { rects } = useTypeLine(contentRef, textRef, type)
+  const { w, h } = useTypeBox(outerRef, type)
+  const { rects } = useTypeLine(outerRef, textRef, type)
 
-  const display = type === "box" ? "inline-block" : "inline"
-
+  if (type === "line") {
+    return (
+      <>
+        <span
+          ref={outerRef}
+          aria-hidden
+          style={{
+            display: "inline-block",
+            width: 0,
+            height: 0,
+            overflow: "visible",
+            position: "relative",
+            zIndex: 0,
+          }}
+        >
+          {rects.map((rect, i) => {
+            const filterId = `smear-filter-line-${i}`
+            return (
+              <svg
+                key={filterId}
+                width={rect.width}
+                height={rect.height}
+                style={{
+                  position: "absolute",
+                  top: rect.top,
+                  left: rect.left,
+                  pointerEvents: "none",
+                  overflow: "visible",
+                }}
+              >
+                <Defs id={filterId} scale={scale} />
+                <rect
+                  x={-paddingX}
+                  y={-paddingY}
+                  width={
+                    getRectSize(rect.width, rect.height, paddingX, paddingY)
+                      .width
+                  }
+                  height={
+                    getRectSize(rect.width, rect.height, paddingX, paddingY)
+                      .height
+                  }
+                  rx={getRx(rect.height, tip, paddingY)}
+                  fill={backgroundColor}
+                  filter={`url(#${filterId})`}
+                />
+              </svg>
+            )
+          })}
+        </span>
+        <span ref={textRef} style={{ position: "relative", zIndex: 1, color }}>
+          {children}
+        </span>
+      </>
+    )
+  }
 
   return (
     <span
-      ref={contentRef}
+      ref={outerRef}
       style={{
         position: "relative",
-        display,
+        display: "inline-block",
         width: "fit-content",
         isolation: "isolate",
       }}
     >
-      {w > 0 && h > 0 && type === "box" && (
+      {w > 0 && h > 0 && (
         <svg
           width={w}
           height={h}
@@ -73,7 +132,7 @@ export const Smear = ({
             overflow: "visible",
           }}
         >
-          <Defs id="smear-filter-box" />
+          <Defs id="smear-filter-box" scale={scale} />
           <rect
             x={-paddingX}
             y={-paddingY}
@@ -85,53 +144,21 @@ export const Smear = ({
           />
         </svg>
       )}
-
-      {type === "line" &&
-        rects.map((rect, i) => {
-          const filterId = `smear-filter-line-${i}`
-
-          return (
-            <svg
-              key={i}
-              width={rect.width}
-              height={rect.height}
-              style={{
-                position: "absolute",
-                top: rect.top,
-                left: rect.left,
-                pointerEvents: "none",
-                overflow: "visible",
-                zIndex: -1,
-              }}
-            >
-              <Defs id={filterId} />
-              <rect
-                x={-paddingX}
-                y={-paddingY}
-                width={getRectSize(rect.width, rect.height, paddingX, paddingY).width}
-                height={getRectSize(rect.width, rect.height, paddingX, paddingY).height}
-                rx={getRx(rect.height, tip, paddingY)}
-                fill={backgroundColor}
-                filter={`url(#${filterId})`}
-              />
-            </svg>
-          )
-        })}
-
-      <span ref={textRef} style={{ position: "relative", color }}>{children}</span>
+      <span ref={textRef} style={{ position: "relative", color }}>
+        {children}
+      </span>
     </span>
   )
 }
 
-
-const Defs = ({ id }: { id: string }) => {
+const Defs = ({ id, scale }: { id: string; scale: number }) => {
   return (
     <defs>
       <filter id={id}>
         <feTurbulence baseFrequency={0.015} numOctaves={5} seed={0} />
         <feDisplacementMap
           in="SourceGraphic"
-          scale={8}
+          scale={scale}
           xChannelSelector="R"
           yChannelSelector="G"
         />
