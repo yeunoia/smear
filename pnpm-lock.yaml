@@ -57,9 +57,9 @@ importers:
 
   demo:
     dependencies:
-      '@yeunoia/smear':
-        specifier: 0.1.2
-        version: 0.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@yeunoia/bloom':
+        specifier: 0.1.0
+        version: 0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@types/node':
         specifier: ^25.7.0
@@ -612,8 +612,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@yeunoia/smear@0.1.2':
-    resolution: {integrity: sha512-gFv0HPyH6Ah36rvya85jwSsOdPbBAWhNtD5bImT+SFP2CqJ+W5Oc4S8zwhBH6ld412PwtmnZhzzvS0dDCQWLTw==}
+  '@yeunoia/bloom@0.1.0':
+    resolution: {integrity: sha512-i5OtQUtswaXSl+s/YKOTYDngoODbIr+DrrDOTbnJYd+V2+oa1N44+e+AcTzhxCED/ZdIPD/mNwUNzLA4gKBPMg==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -1977,7 +1977,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@yeunoia/smear@0.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@yeunoia/bloom@0.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
