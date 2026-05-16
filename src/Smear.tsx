@@ -77,8 +77,8 @@ export const Smear = ({
           <rect
             x={-paddingX}
             y={-paddingY}
-            width={getRectSize(w, h, paddingX).width}
-            height={getRectSize(w, h, paddingX).height}
+            width={getRectSize(w, h, paddingX, paddingY).width}
+            height={getRectSize(w, h, paddingX, paddingY).height}
             rx={getRx(h, tip, paddingY)}
             fill={backgroundColor}
             filter="url(#smear-filter-box)"
@@ -108,8 +108,8 @@ export const Smear = ({
               <rect
                 x={-paddingX}
                 y={-paddingY}
-                width={getRectSize(rect.width, rect.height, paddingX).width}
-                height={getRectSize(rect.width, rect.height, paddingX).height}
+                width={getRectSize(rect.width, rect.height, paddingX, paddingY).width}
+                height={getRectSize(rect.width, rect.height, paddingX, paddingY).height}
                 rx={getRx(rect.height, tip, paddingY)}
                 fill={backgroundColor}
                 filter={`url(#${filterId})`}

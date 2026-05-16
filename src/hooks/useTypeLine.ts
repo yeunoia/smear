@@ -38,14 +38,18 @@ export const useTypeLine = (
     calculate()
 
     let animationId: number
-    const observer = new ResizeObserver(() => {
+    const calculateReady = () => {
       cancelAnimationFrame(animationId)
       animationId = requestAnimationFrame(calculate)
-    })
+    }
+
+    const observer = new ResizeObserver(calculateReady)
     observer.observe(el)
+    window.addEventListener("resize", calculateReady)
 
     return () => {
       observer.disconnect()
+      window.removeEventListener("resize", calculateReady)
       cancelAnimationFrame(animationId)
     }
   }, [ref, type])
