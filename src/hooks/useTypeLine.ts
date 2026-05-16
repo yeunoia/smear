@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useState } from "react"
-import { ContentType } from "../Smear"
+import { ContentType } from "../Bloom"
 
 type LineRect = {
   top: number

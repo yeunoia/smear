@@ -1,1 +1,1 @@
-export { Smear, type SmearProps } from "./Smear"
+export { Bloom, type BloomProps } from "./Bloom"

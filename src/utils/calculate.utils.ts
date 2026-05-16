@@ -1,4 +1,4 @@
-import { TipType } from "../Smear"
+import { TipType } from "../Bloom"
 
 export const getRx = (height: number, tip: TipType, paddingY: number) => {
   return tip === "round" ? (height + paddingY) / 2 : 1

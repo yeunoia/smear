@@ -1,6 +1,6 @@
 {
-  "name": "@yeunoia/smear",
-  "version": "0.1.2",
+  "name": "@yeunoia/bloom",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -47,7 +47,7 @@
     "sketch",
     "annotation",
     "svg",
-    "smear"
+    "bloom"
   ],
   "license": "MIT"
 }

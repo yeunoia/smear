@@ -1,19 +1,19 @@
-# @yeunoia/smear
+# @yeunoia/bloom
 
-Wrap anything with smear. → [See Smear](https://yeunoia-smear.vercel.app/)
+Wrap anything with bloom. → [See Bloom](https://yeunoia-bloom.vercel.app/)
 
 ## Install
 
 ```
-npm install @yeunoia/smear
+npm install @yeunoia/bloom
 ```
 
 ## Usage
 
 ```tsx
-import { Smear } from "@yeunoia/smear";
+import { Bloom } from "@yeunoia/bloom";
 
-<Smear>highlighted words</Smear>
+<Bloom>highlighted words</Bloom>
 
 ```
 

@@ -8,6 +8,6 @@ export default defineConfig({
     alias:
       process.env.NODE_ENV === "production"
         ? {}
-        : { "@yeunoia/smear": resolve(__dirname, "../src/index.ts") },
+        : { "@yeunoia/bloom": resolve(__dirname, "../src/index.ts") },
   },
 })

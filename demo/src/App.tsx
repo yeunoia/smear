@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Smear } from "@yeunoia/smear"
+import { Bloom } from "@yeunoia/bloom"
 
 const themes = {
   dark: {
@@ -54,43 +54,43 @@ export default function App() {
               fontWeight: 600,
             }}
           >
-            <Smear backgroundColor={c.box} paddingX={10} paddingY={5}>
-              @yeunoia/smear
-            </Smear>
+            <Bloom backgroundColor={c.box} paddingX={10} paddingY={5}>
+              @yeunoia/bloom
+            </Bloom>
           </div>
         </div>
 
         <p style={{ fontSize: 16, lineHeight: 2.2, margin: 0 }}>
           Charlie Brown was not very good at{" "}
-          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>flying kites</Smear>.
+          <Bloom type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>flying kites</Bloom>.
           {" "}Every year the kite-eating tree would get him. Every single year. But he always tried
           again, because{" "}
-          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+          <Bloom type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
             that's the kind of person Charlie Brown was
-          </Smear>
+          </Bloom>
           . Snoopy didn't worry about things like that. Snoopy lay on top of his doghouse and
           thought about supper. Lucy sat in her psychiatry booth and charged five cents for advice
           nobody wanted.{" "}
-          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+          <Bloom type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
             Good grief, said Charlie Brown, which was the truest thing he ever said.
-          </Smear>
+          </Bloom>
           {" "}Linus carried his blanket everywhere. He said security was not a crime. Charlie Brown
           thought about this for a long time. He wasn't sure he agreed, but he wasn't sure he
           disagreed either, and{" "}
-          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+          <Bloom type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
             that in-between feeling was very familiar to him
-          </Smear>
+          </Bloom>
           . The baseball team lost again. They always lost. And yet on Saturday morning they would
           all show up, gloves in hand, ready to lose some more.{" "}
-          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+          <Bloom type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
             There is something to be said for that, even if Charlie Brown couldn't quite say what.
-          </Smear>
+          </Bloom>
         </p>
 
         <p style={{ fontSize: 15, lineHeight: 1.9, marginTop: 28, marginBottom: 0 }}>
-          <Smear backgroundColor={c.quote} paddingX={14} paddingY={10}>
+          <Bloom backgroundColor={c.quote} paddingX={14} paddingY={10}>
             Sometimes I lie awake at night, and I ask, "Where have I gone wrong?" Then a voice says to me, "This is going to take more than one night."
-          </Smear>
+          </Bloom>
         </p>
 
         <p style={{ fontSize: 12, marginTop: 56, opacity: 0.35, letterSpacing: "0.04em", textAlign: "right" }}>
@@ -109,13 +109,13 @@ export default function App() {
             }}
           >
             wrap{" "}
-            <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+            <Bloom type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
               anything
-            </Smear>
+            </Bloom>
             {" "}with{" "}
-            <Smear type="line" backgroundColor={c.box} paddingX={4} paddingY={2}>
-              smear
-            </Smear>
+            <Bloom type="line" backgroundColor={c.box} paddingX={4} paddingY={2}>
+              bloom
+            </Bloom>
             .
           </span>
         </div>

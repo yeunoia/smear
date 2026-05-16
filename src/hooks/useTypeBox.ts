@@ -1,5 +1,5 @@
 import { type RefObject, useEffect, useState } from "react"
-import { ContentType } from "../Smear"
+import { ContentType } from "../Bloom"
 
 /**
  * @returns
@@ -18,7 +18,7 @@ export const useTypeBox = (ref: RefObject<HTMLSpanElement>, type: ContentType) =
       const { width, height } = entry.contentRect
 
       if (width === 0 || height === 0) {
-        throw new Error("Smear: size can not be 0.")
+        throw new Error("Bloom: size can not be 0.")
       }
 
       setSize({ w: width, h: height })

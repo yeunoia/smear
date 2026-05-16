@@ -6,7 +6,7 @@ import { getRectSize, getRx } from "./utils/calculate.utils"
 export type ContentType = "box" | "line"
 export type TipType = "round" | "square"
 
-export type SmearProps = {
+export type BloomProps = {
   children: ReactNode
   /**
    * @default round
@@ -39,7 +39,7 @@ export type SmearProps = {
   paddingY?: number
 }
 
-export const Smear = ({
+export const Bloom = ({
   children,
   tip = "round",
   type = "box",
@@ -48,7 +48,7 @@ export const Smear = ({
   color = "inherit",
   paddingX = 4,
   paddingY = 2,
-}: SmearProps) => {
+}: BloomProps) => {
   const outerRef = useRef<HTMLSpanElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
 
@@ -71,7 +71,7 @@ export const Smear = ({
           }}
         >
           {rects.map((rect, i) => {
-            const filterId = `smear-filter-line-${i}`
+            const filterId = `bloom-filter-line-${i}`
             return (
               <svg
                 key={filterId}
@@ -132,7 +132,7 @@ export const Smear = ({
             overflow: "visible",
           }}
         >
-          <Defs id="smear-filter-box" scale={scale} />
+          <Defs id="bloom-filter-box" scale={scale} />
           <rect
             x={-paddingX}
             y={-paddingY}
@@ -140,7 +140,7 @@ export const Smear = ({
             height={getRectSize(w, h, paddingX, paddingY).height}
             rx={getRx(h, tip, paddingY)}
             fill={backgroundColor}
-            filter="url(#smear-filter-box)"
+            filter="url(#bloom-filter-box)"
           />
         </svg>
       )}
