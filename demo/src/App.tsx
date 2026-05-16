@@ -3,156 +3,122 @@ import { Smear } from "@yeunoia/smear"
 
 const themes = {
   dark: {
-    bg: "#0d0d0d",
-    surface: "#141414",
-    border: "#1e1e1e",
-    text: "#d0d0d0",
-    muted: "#555",
-    heading: "#eee",
-    code: "#aaa",
-    blobColors: [
-      "#2a1a3aB3",
-      "#1a2535B3",
-      "#3a1a2aB3",
-      "#1a2a2aB3",
-      "#3a1a1aB3",
-    ],
-    heroSmear: "#1a3a2aB3",
-    heroText: "#ccc",
+    bg: "#100f1a",
+    fg: "#a8a8b8",
+    highlight: "#6655bb77",
+    pink: "#cc557766",
+    box: "#7766cc99",
+    quote: "#3d2d7799",
   },
   light: {
-    bg: "#fafafa",
-    surface: "#f0f0f0",
-    border: "#e0e0e0",
-    text: "#2a2a2a",
-    muted: "#999",
-    heading: "#111",
-    code: "#555",
-    blobColors: [
-      "#e8d5f5B3",
-      "#d5e8f5B3",
-      "#f5d5e8B3",
-      "#d5f5e8B3",
-      "#f5e8d5B3",
-    ],
-    heroSmear: "#c8f0dcB3",
-    heroText: "#333",
+    bg: "#f5f3fc",
+    fg: "#3a3a3a",
+    highlight: "#7755cc55",
+    pink: "#dd668844",
+    box: "#9977dd66",
+    quote: "#6655bb44",
   },
 }
 
-const names = ["rainbow", "cloud", "dusk", "mist", "ember"]
-
 export default function App() {
   const [mode, setMode] = useState<"dark" | "light">(() =>
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light",
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
   )
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)")
-    const handler = (e: MediaQueryListEvent) =>
-      setMode(e.matches ? "dark" : "light")
+    const handler = (e: MediaQueryListEvent) => setMode(e.matches ? "dark" : "light")
     mq.addEventListener("change", handler)
     return () => mq.removeEventListener("change", handler)
   }, [])
 
   const c = themes[mode]
 
-  const CodeBlock = ({ children }: { children: string }) => (
-    <pre
-      style={{
-        fontFamily: "monospace",
-        fontSize: 13,
-        color: c.code,
-        background: c.surface,
-        border: `1px solid ${c.border}`,
-        borderRadius: 8,
-        padding: "16px 20px",
-        overflowX: "auto",
-        lineHeight: 1.7,
-        margin: 0,
-      }}
-    >
-      {children}
-    </pre>
-  )
-
   return (
     <main
       style={{
         background: c.bg,
         minHeight: "100vh",
-        color: c.text,
-        fontFamily: "system-ui, -apple-system, sans-serif",
+        color: c.fg,
+        fontFamily: "Inter, 'Helvetica Neue', system-ui, -apple-system, sans-serif",
       }}
     >
-      <div
-        style={{ maxWidth: 600, margin: "0 auto", padding: "80px 24px 120px" }}
-      >
-        <section style={{ marginBottom: 24 }}>
-          <div style={{ marginBottom: 16 }}>
-            <h1
-              style={{
-                fontSize: 24,
-                fontWeight: 500,
-                letterSpacing: "-0.02em",
-                color: c.heading,
-                margin: 0,
-              }}
-            >
-              @yeunoia/smear
-            </h1>
-          </div>
-          <p
-            style={{
-              fontSize: 15,
-              color: c.muted,
-              lineHeight: 1.7,
-              marginBottom: 28,
-            }}
-          >
-            Wrap{" "}
-            <Smear
-              backgroundColor={c.heroSmear}
-              paddingX={8}
-              paddingY={3}
-              color={c.heroText}
-              tip="round"
-            >
-              anything
-            </Smear>{" "}
-            with smear
-          </p>
-          <CodeBlock>{"npm install @yeunoia/smear"}</CodeBlock>
-        </section>
-
-        <section>
+      <div style={{ maxWidth: 560, margin: "0 auto", padding: "60px 40px 60px" }}>
+        <div style={{ marginBottom: 44 }}>
           <div
             style={{
-              background: c.surface,
-              border: `1px solid ${c.border}`,
-              borderRadius: 12,
-              padding: 32,
-              display: "flex",
-              gap: 24,
-              fontSize: 13,
-              color: c.code,
-              fontFamily: "monospace",
+              fontSize: 26,
+              color: c.fg,
+              fontFamily: "Inter, 'Helvetica Neue', system-ui, -apple-system, sans-serif",
+              letterSpacing: "-0.01em",
+              fontWeight: 600,
             }}
           >
-            {names.map((name, i) => (
-              <Smear
-                key={name}
-                backgroundColor={c.blobColors[i]}
-                paddingX={10}
-                paddingY={5}
-              >
-                {name}
-              </Smear>
-            ))}
+            <Smear backgroundColor={c.box} paddingX={10} paddingY={5}>
+              @yeunoia/smear
+            </Smear>
           </div>
-        </section>
+        </div>
+
+        <p style={{ fontSize: 16, lineHeight: 2.2, margin: 0 }}>
+          Charlie Brown was not very good at{" "}
+          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>flying kites</Smear>.
+          {" "}Every year the kite-eating tree would get him. Every single year. But he always tried
+          again, because{" "}
+          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+            that's the kind of person Charlie Brown was
+          </Smear>
+          . Snoopy didn't worry about things like that. Snoopy lay on top of his doghouse and
+          thought about supper. Lucy sat in her psychiatry booth and charged five cents for advice
+          nobody wanted.{" "}
+          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+            Good grief, said Charlie Brown, which was the truest thing he ever said.
+          </Smear>
+          {" "}Linus carried his blanket everywhere. He said security was not a crime. Charlie Brown
+          thought about this for a long time. He wasn't sure he agreed, but he wasn't sure he
+          disagreed either, and{" "}
+          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+            that in-between feeling was very familiar to him
+          </Smear>
+          . The baseball team lost again. They always lost. And yet on Saturday morning they would
+          all show up, gloves in hand, ready to lose some more.{" "}
+          <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+            There is something to be said for that, even if Charlie Brown couldn't quite say what.
+          </Smear>
+        </p>
+
+        <p style={{ fontSize: 15, lineHeight: 1.9, marginTop: 28, marginBottom: 0 }}>
+          <Smear backgroundColor={c.quote} paddingX={14} paddingY={10}>
+            Sometimes I lie awake at night, and I ask, "Where have I gone wrong?" Then a voice says to me, "This is going to take more than one night."
+          </Smear>
+        </p>
+
+        <p style={{ fontSize: 12, marginTop: 56, opacity: 0.35, letterSpacing: "0.04em", textAlign: "right" }}>
+          Charles M. Schulz, <em>Peanuts</em> (1950–2000)
+        </p>
+
+        <div style={{ textAlign: "center", marginTop: 48 }}>
+          <span
+            style={{
+              fontSize: 18,
+              color: c.fg,
+              fontFamily: "Inter, 'Helvetica Neue', system-ui, -apple-system, sans-serif",
+              letterSpacing: "0.01em",
+              fontWeight: 500,
+              opacity: 0.9,
+            }}
+          >
+            wrap{" "}
+            <Smear type="line" backgroundColor={c.highlight} paddingX={4} paddingY={2}>
+              anything
+            </Smear>
+            {" "}with{" "}
+            <Smear type="line" backgroundColor={c.box} paddingX={4} paddingY={2}>
+              smear
+            </Smear>
+            .
+          </span>
+        </div>
       </div>
     </main>
   )

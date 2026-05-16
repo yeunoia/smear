@@ -1,6 +1,6 @@
 # @yeunoia/smear
 
-Wrap anything with smear. → [Demo](https://yeunoia-smear.vercel.app/)
+Wrap anything with smear. → [See Smear](https://yeunoia-smear.vercel.app/)
 
 ## Install
 
