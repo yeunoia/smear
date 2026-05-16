@@ -1,13 +1,16 @@
 import { type RefObject, useEffect, useState } from "react"
+import { ContentType } from "../Smear"
 
 /**
  * @returns
  * the content size of an element.
  */
-export const useContentSize = (ref: RefObject<HTMLSpanElement>) => {
+export const useTypeBox = (ref: RefObject<HTMLSpanElement>, type: ContentType) => {
   const [size, setSize] = useState({ w: 0, h: 0 })
 
   useEffect(() => {
+    if(type==='line') return;
+
     const el = ref.current
     if (!el) return
 
@@ -22,7 +25,7 @@ export const useContentSize = (ref: RefObject<HTMLSpanElement>) => {
     })
     observer.observe(el)
     return () => observer.disconnect()
-  }, [ref])
+  }, [ref, type])
 
   return size
 }

@@ -1,6 +1,6 @@
 {
   "name": "@yeunoia/smear",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -35,5 +35,7 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.59.3",
     "vite": "^5.0.0"
-  }
+  },
+  "license": "MIT"
+
 }
