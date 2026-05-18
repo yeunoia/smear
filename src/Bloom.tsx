@@ -1,21 +1,19 @@
-import { ReactNode, useRef } from "react"
+import { ReactElement, ReactNode, useId, useRef } from "react"
 import { useTypeBox } from "./hooks/useTypeBox"
 import { useTypeLine } from "./hooks/useTypeLine"
 import { getRectSize, getRx } from "./utils/calculate.utils"
 
-export type ContentType = "box" | "line"
-export type TipType = "round" | "square"
 
 export type BloomProps = {
   children: ReactNode
   /**
    * @default round
    */
-  tip?: TipType
+  tip?: "round" | "square"
   /**
    * @default box
    */
-  type?: ContentType
+  type?: "box" | "line"
   /**
    * @default 4
    * recommended range: 1-10
@@ -25,6 +23,11 @@ export type BloomProps = {
    * @default #A4E7D5B3
    */
   backgroundColor?: string
+  /**
+   * Array of colors for a linear gradient fill (left to right).
+   * Overrides backgroundColor when provided.
+   */
+  gradient?: string[]
   /**
    * @default inherit
    */
@@ -45,10 +48,12 @@ export const Bloom = ({
   type = "box",
   scale = 4,
   backgroundColor = "#A4E7D5B3",
+  gradient,
   color = "inherit",
   paddingX = 4,
   paddingY = 2,
-}: BloomProps) => {
+}: BloomProps): ReactElement => {
+  const uid = useId()
   const outerRef = useRef<HTMLSpanElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
 
@@ -71,7 +76,9 @@ export const Bloom = ({
           }}
         >
           {rects.map((rect, i) => {
-            const filterId = `bloom-filter-line-${i}`
+            const filterId = `${uid}-line-${i}`
+            const gradientId = `${uid}-line-gradient-${i}`
+
             return (
               <svg
                 key={filterId}
@@ -85,20 +92,14 @@ export const Bloom = ({
                   overflow: "visible",
                 }}
               >
-                <Defs id={filterId} scale={scale} />
+                <Defs id={filterId} scale={scale} gradientId={gradientId} gradient={gradient} />
                 <rect
                   x={-paddingX}
                   y={-paddingY}
-                  width={
-                    getRectSize(rect.width, rect.height, paddingX, paddingY)
-                      .width
-                  }
-                  height={
-                    getRectSize(rect.width, rect.height, paddingX, paddingY)
-                      .height
-                  }
+                  width={getRectSize(rect.width, rect.height, paddingX, paddingY).width}
+                  height={getRectSize(rect.width, rect.height, paddingX, paddingY).height}
                   rx={getRx(rect.height, tip, paddingY)}
-                  fill={backgroundColor}
+                  fill={gradient ? `url(#${gradientId})` : backgroundColor}
                   filter={`url(#${filterId})`}
                 />
               </svg>
@@ -132,15 +133,15 @@ export const Bloom = ({
             overflow: "visible",
           }}
         >
-          <Defs id="bloom-filter-box" scale={scale} />
+          <Defs id={`${uid}-box`} scale={scale} gradientId={`${uid}-box-gradient`} gradient={gradient} />
           <rect
             x={-paddingX}
             y={-paddingY}
             width={getRectSize(w, h, paddingX, paddingY).width}
             height={getRectSize(w, h, paddingX, paddingY).height}
             rx={getRx(h, tip, paddingY)}
-            fill={backgroundColor}
-            filter="url(#bloom-filter-box)"
+            fill={gradient ? `url(#${uid}-box-gradient)` : backgroundColor}
+            filter={`url(#${uid}-box)`}
           />
         </svg>
       )}
@@ -151,9 +152,16 @@ export const Bloom = ({
   )
 }
 
-const Defs = ({ id, scale }: { id: string; scale: number }) => {
+const Defs = ({ id, scale, gradientId, gradient }: { id: string; scale: number; gradientId?: string; gradient?: string[] }) => {
   return (
     <defs>
+      {gradient && gradientId && (
+        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+          {gradient.map((color, i) => (
+            <stop key={i} offset={`${(i / (gradient.length - 1)) * 100}%`} stopColor={color} />
+          ))}
+        </linearGradient>
+      )}
       <filter id={id}>
         <feTurbulence baseFrequency={0.015} numOctaves={5} seed={0} />
         <feDisplacementMap
