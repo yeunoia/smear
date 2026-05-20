@@ -71,7 +71,7 @@ export const Bloom = ({
             height: 0,
             overflow: "visible",
             position: "relative",
-            zIndex: 0,
+            isolation:'isolate'
           }}
         >
           {rects.map((rect, i) => {
@@ -116,7 +116,7 @@ export const Bloom = ({
             )
           })}
         </span>
-        <span ref={textRef} style={{ position: "relative", zIndex: 1, color }}>
+        <span ref={textRef} style={{ position: "relative", color }}>
           {children}
         </span>
       </>
