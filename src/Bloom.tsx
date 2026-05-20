@@ -2,6 +2,8 @@ import { ReactElement, ReactNode, useId, useRef } from "react"
 import { useTypeBox } from "./hooks/useTypeBox"
 import { useTypeLine } from "./hooks/useTypeLine"
 import { getRectSize, getRx } from "./utils/calculate.utils"
+import { Defs } from "./components/Defs"
+import { AnimatedStyle } from "./components/AnimatedStyle"
 
 export type BloomProps = {
   children: ReactNode
@@ -39,6 +41,18 @@ export type BloomProps = {
    * @default 2
    */
   paddingY?: number
+  /**
+   * @default false
+   */
+  animated?: boolean
+  /**
+   * @default 0.2 seconds
+   */
+  delay?: number
+  /**
+   * @default 2 seconds
+   */
+  duration?: number
 }
 
 export const Bloom = ({
@@ -51,6 +65,9 @@ export const Bloom = ({
   color = "inherit",
   paddingX = 4,
   paddingY = 2,
+  animated = false,
+  delay = 0.2,
+  duration = 2,
 }: BloomProps): ReactElement => {
   const uid = useId()
   const anchorRef = useRef<HTMLSpanElement>(null)
@@ -123,6 +140,9 @@ export const Bloom = ({
     )
   }
 
+  const { width: rw, height: rh } = getRectSize(w, h, paddingX, paddingY)
+  const animName = `bloom-${uid.replace(/:/g, "")}`
+
   return (
     <span
       ref={anchorRef}
@@ -149,14 +169,20 @@ export const Bloom = ({
             gradientId={`${uid}-box-gradient`}
             gradient={gradient}
           />
+
+          {animated && <AnimatedStyle uid={uid} radius={rw}/>}
+
           <rect
             x={-paddingX}
             y={-paddingY}
-            width={getRectSize(w, h, paddingX, paddingY).width}
-            height={getRectSize(w, h, paddingX, paddingY).height}
+            width={rw}
+            height={rh}
             rx={getRx(h, tip, paddingY)}
             fill={gradient ? `url(#${uid}-box-gradient)` : backgroundColor}
             filter={`url(#${uid}-box)`}
+            style={animated ? {
+              animation: `${animName} ${duration}s ease ${delay}s both`,
+            } : undefined}
           />
         </svg>
       )}
@@ -167,39 +193,3 @@ export const Bloom = ({
   )
 }
 
-const Defs = ({
-  id,
-  scale,
-  gradientId,
-  gradient,
-}: {
-  id: string
-  scale: number
-  gradientId?: string
-  gradient?: string[]
-}) => {
-  return (
-    <defs>
-      {gradient && gradientId && (
-        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
-          {gradient.map((color, i) => (
-            <stop
-              key={i}
-              offset={`${(i / (gradient.length - 1)) * 100}%`}
-              stopColor={color}
-            />
-          ))}
-        </linearGradient>
-      )}
-      <filter id={id}>
-        <feTurbulence baseFrequency={0.015} numOctaves={5} seed={0} />
-        <feDisplacementMap
-          in="SourceGraphic"
-          scale={scale}
-          xChannelSelector="R"
-          yChannelSelector="G"
-        />
-      </filter>
-    </defs>
-  )
-}

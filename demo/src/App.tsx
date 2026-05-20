@@ -63,7 +63,12 @@ export default function App() {
                 fontWeight: 600,
               }}
             >
-              <Bloom backgroundColor={c.box} paddingX={10} paddingY={5}>
+              <Bloom
+                backgroundColor={c.box}
+                paddingX={10}
+                paddingY={5}
+                animated
+              >
                 @yeunoia/bloom
               </Bloom>
             </div>
@@ -165,16 +170,11 @@ export default function App() {
               }}
             >
               wrap{" "}
-              <Bloom
-                type="line"
-                color={c.bg}
-                backgroundColor={c.rose}
-                tip="square"
-              >
+              <Bloom color={c.bg} backgroundColor={c.rose} tip="square">
                 anything
               </Bloom>{" "}
               with{" "}
-              <Bloom type="line" backgroundColor={c.box} tip="square">
+              <Bloom backgroundColor={c.box} tip="square" animated>
                 bloom
               </Bloom>
               .
