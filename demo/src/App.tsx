@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Bloom } from "@yeunoia/bloom"
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 const themes = {
   dark: {
