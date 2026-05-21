@@ -64,10 +64,11 @@ export default function App() {
               }}
             >
               <Bloom
-                backgroundColor={c.box}
+                backgroundColor={c.rose}
                 paddingX={10}
                 paddingY={5}
                 animated
+                tip="square"
               >
                 @yeunoia/bloom
               </Bloom>
@@ -107,6 +108,7 @@ export default function App() {
               paddingY={2}
               messiness={3}
               tip="square"
+              animated={true}
             >
               Good grief, said Charlie Brown, which was the truest thing he ever
               said.
@@ -129,13 +131,13 @@ export default function App() {
             style={{
               fontSize: 15,
               lineHeight: 1.9,
-              marginTop: 24,
+              marginTop: 16,
               marginBottom: 0,
             }}
           >
             <Bloom
               paddingX={14}
-              paddingY={10}
+              paddingY={8}
               messiness={4}
               backgroundColor={c.highlight}
             >
@@ -170,11 +172,11 @@ export default function App() {
               }}
             >
               wrap{" "}
-              <Bloom color={c.bg} backgroundColor={c.rose} tip="square">
+              <Bloom color={c.bg} backgroundColor={c.box} tip="square">
                 anything
               </Bloom>{" "}
               with{" "}
-              <Bloom backgroundColor={c.box} tip="square" animated>
+              <Bloom backgroundColor={c.rose} tip="square" animated>
                 bloom
               </Bloom>
               .

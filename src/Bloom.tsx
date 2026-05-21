@@ -3,7 +3,7 @@ import { useTypeBox } from "./hooks/useTypeBox"
 import { useTypeLine } from "./hooks/useTypeLine"
 import { getRectSize, getRx } from "./utils/calculate.utils"
 import { Defs } from "./components/Defs"
-import { AnimatedStyle } from "./components/AnimatedStyle"
+import { useAnimate } from "./hooks/useAnimate"
 
 export type BloomProps = {
   children: ReactNode
@@ -50,7 +50,7 @@ export type BloomProps = {
    */
   delay?: number
   /**
-   * @default 2 seconds
+   * @default 1.2 seconds
    */
   duration?: number
 }
@@ -67,14 +67,26 @@ export const Bloom = ({
   paddingY = 2,
   animated = false,
   delay = 0.2,
-  duration = 2,
+  duration = 1.2,
 }: BloomProps): ReactElement => {
   const uid = useId()
   const anchorRef = useRef<HTMLSpanElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
+  const rectRef = useRef<SVGRectElement>(null)
 
   const { w, h } = useTypeBox(anchorRef, type)
   const { rects } = useTypeLine(anchorRef, textRef, type)
+
+  useAnimate({
+    rectRef,
+    animated,
+    delay,
+    duration,
+    tip,
+    messiness,
+    width: w,
+    height: h,
+  })
 
   if (type === "line") {
     return (
@@ -88,7 +100,7 @@ export const Bloom = ({
             height: 0,
             overflow: "visible",
             position: "relative",
-            isolation:'isolate'
+            isolation: "isolate",
           }}
         >
           {rects.map((rect, i) => {
@@ -141,7 +153,6 @@ export const Bloom = ({
   }
 
   const { width: rw, height: rh } = getRectSize(w, h, paddingX, paddingY)
-  const animName = `bloom-${uid.replace(/:/g, "")}`
 
   return (
     <span
@@ -169,10 +180,8 @@ export const Bloom = ({
             gradientId={`${uid}-box-gradient`}
             gradient={gradient}
           />
-
-          {animated && <AnimatedStyle uid={uid} radius={rw}/>}
-
           <rect
+            ref={rectRef}
             x={-paddingX}
             y={-paddingY}
             width={rw}
@@ -180,9 +189,6 @@ export const Bloom = ({
             rx={getRx(h, tip, paddingY)}
             fill={gradient ? `url(#${uid}-box-gradient)` : backgroundColor}
             filter={`url(#${uid}-box)`}
-            style={animated ? {
-              animation: `${animName} ${duration}s ease ${delay}s both`,
-            } : undefined}
           />
         </svg>
       )}
@@ -192,4 +198,3 @@ export const Bloom = ({
     </span>
   )
 }
-
