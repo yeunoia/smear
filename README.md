@@ -44,18 +44,27 @@ Use `gradient` for a multi-color fill:
 </Bloom>
 ```
 
+Use `animated` to draw the highlight on mount:
+
+```tsx
+<Bloom animated>draws itself in</Bloom>
+<Bloom animated delay={0.5} duration={1.2}>slower, with a delay</Bloom>
+```
 ## Props
 
 | Prop              | Type | Default | Description |
 |-------------------|------|---------|-------------|
 | `type`            | `"box" \| "line"` | `"box"` | `box` wraps the entire element, `line` highlights each line individually |
 | `tip`             | `"round" \| "square"` | `"round"` | Shape of the highlight corners |
-| `messiness`            | `number` | `4` | Wobble intensity. Recommended range: 1–10 |
+| `messiness`       | `number` | `4` | Wobble intensity. Recommended range: 1–10 |
 | `backgroundColor` | `string` | `"#A4E7D5B3"` | Fill color of the highlight |
 | `gradient`        | `string[]` | — | Array of colors for a left-to-right gradient fill. Overrides `backgroundColor` |
 | `color`           | `string` | `"inherit"` | Text color |
 | `paddingX`        | `number` | `4` | Horizontal padding (px) |
 | `paddingY`        | `number` | `2` | Vertical padding (px) |
+| `animated`        | `boolean` | `false` | Draw the highlight with an animation on mount |
+| `delay`           | `number` | `0.2` | Delay before the animation starts (seconds) |
+| `duration`        | `number` | `0.6` | How long the draw animation takes (seconds) |
 
 ## Requirements
 
