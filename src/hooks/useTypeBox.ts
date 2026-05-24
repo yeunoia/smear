@@ -1,12 +1,9 @@
 import { type RefObject, useEffect, useState } from "react"
-import { type BloomProps } from "../Bloom"
 
-export const useTypeBox = (ref: RefObject<HTMLSpanElement>, type: BloomProps["type"]) => {
+export const useTypeBox = (ref: RefObject<HTMLSpanElement>) => {
   const [size, setSize] = useState({ w: 0, h: 0 })
 
   useEffect(() => {
-    if(type==='line') return;
-
     const el = ref.current
     if (!el) return
 
@@ -21,7 +18,7 @@ export const useTypeBox = (ref: RefObject<HTMLSpanElement>, type: BloomProps["ty
     })
     observer.observe(el)
     return () => observer.disconnect()
-  }, [ref, type])
+  }, [ref])
 
   return size
 }

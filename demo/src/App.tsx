@@ -21,14 +21,24 @@ const themes = {
   },
 }
 
+const delay = {
+  start: 0.5,
+  first: 1.2,
+  second: 2.5,
+  third: 3.8,
+}
+
 export default function App() {
   const [mode, setMode] = useState<"dark" | "light">(() =>
-    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light",
   )
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)")
-    const handler = (e: MediaQueryListEvent) => setMode(e.matches ? "dark" : "light")
+    const handler = (e: MediaQueryListEvent) =>
+      setMode(e.matches ? "dark" : "light")
     mq.addEventListener("change", handler)
     return () => mq.removeEventListener("change", handler)
   }, [])
@@ -60,7 +70,15 @@ export default function App() {
                 fontWeight: 600,
               }}
             >
-              <Bloom backgroundColor={c.box} paddingX={10} paddingY={5}>
+              <Bloom
+                backgroundColor={c.rose}
+                paddingX={10}
+                paddingY={5}
+                animated
+                delay={delay.start}
+                duration={0.8}
+                tip="square"
+              >
                 @yeunoia/bloom
               </Bloom>
             </div>
@@ -73,7 +91,7 @@ export default function App() {
               backgroundColor={c.rose}
               paddingX={4}
               paddingY={2}
-              scale={2}
+              messiness={2}
               tip="square"
             >
               flying kites
@@ -85,7 +103,10 @@ export default function App() {
               backgroundColor={c.highlight}
               paddingX={4}
               paddingY={2}
-              scale={2}
+              messiness={2}
+              animated
+              delay={delay.first}
+              duration={0.8}
             >
               that's the kind of person Charlie Brown was
             </Bloom>
@@ -97,8 +118,11 @@ export default function App() {
               backgroundColor={c.rose}
               paddingX={4}
               paddingY={2}
-              scale={3}
+              messiness={3}
               tip="square"
+              animated
+              delay={delay.second}
+              duration={0.8}
             >
               Good grief, said Charlie Brown, which was the truest thing he ever
               said.
@@ -111,7 +135,10 @@ export default function App() {
               backgroundColor={c.highlight}
               paddingX={4}
               paddingY={2}
-              scale={10}
+              messiness={10}
+              animated
+              delay={delay.third}
+              duration={0.8}
             >
               that in-between feeling was very familiar to him.
             </Bloom>
@@ -121,14 +148,14 @@ export default function App() {
             style={{
               fontSize: 15,
               lineHeight: 1.9,
-              marginTop: 24,
+              marginTop: 16,
               marginBottom: 0,
             }}
           >
             <Bloom
               paddingX={14}
-              paddingY={10}
-              scale={4}
+              paddingY={8}
+              messiness={4}
               backgroundColor={c.highlight}
             >
               Sometimes I lie awake at night, and I ask, "Where have I gone
@@ -162,16 +189,11 @@ export default function App() {
               }}
             >
               wrap{" "}
-              <Bloom
-                type="line"
-                color={c.bg}
-                backgroundColor={c.rose}
-                tip="square"
-              >
+              <Bloom color={c.bg} backgroundColor={c.box} tip="square">
                 anything
               </Bloom>{" "}
               with{" "}
-              <Bloom type="line" backgroundColor={c.box} tip="square">
+              <Bloom backgroundColor={c.rose} tip="square" animated>
                 bloom
               </Bloom>
               .
@@ -225,7 +247,7 @@ export default function App() {
           </div>
         </div>
       </main>
-      <Analytics/>
+      <Analytics />
     </>
   )
 }
