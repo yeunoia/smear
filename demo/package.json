@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@yeunoia/bloom": "0.1.2"
+    "@yeunoia/bloom": "0.2.0"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",
