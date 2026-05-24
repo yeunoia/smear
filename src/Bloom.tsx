@@ -50,7 +50,7 @@ export type BloomProps = {
    */
   delay?: number
   /**
-   * @default 1.2 seconds
+   * @default 0.6 seconds
    */
   duration?: number
 }
@@ -67,7 +67,7 @@ export const Bloom = ({
   paddingY = 2,
   animated = false,
   delay = 0.2,
-  duration = 1.2,
+  duration = 0.6,
 }: BloomProps): ReactElement => {
   const uid = useId()
   const anchorRef = useRef<HTMLSpanElement>(null)
