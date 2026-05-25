@@ -2,7 +2,7 @@
 
 Wrap anything with a bloom.
 
-A React component that wraps text witha hand-drawn SVG highlight — like a marker drawn over words on a page.
+A React component that wraps text with a hand-drawn SVG highlight.  
 
 
 ## Install
@@ -16,39 +16,14 @@ npm install @yeunoia/bloom
 ```tsx
 import { Bloom } from "@yeunoia/bloom";
 
-//wraps the entire element
 <Bloom backgroundColor="#a4e7d5b3">
-  Bloom.
+  This is a bloom-box.
 </Bloom>
 
-//follows each line of text
 <p>
-  Charlie Brown was not very good at
-  <Bloom type="line" backgroundColor="#6655bb77">flying kites</Bloom>.
+  Hello,
+  <Bloom type="line" backgroundColor="#6655bb77">bloom</Bloom>.
 </p>
-```
-
-Use `scale` to control how organic the edges feel:
-
-```tsx
-<Bloom scale={1}>barely there</Bloom>
-<Bloom scale={4}>default</Bloom>
-<Bloom scale={10}>loose and wobbly</Bloom>
-```
-
-Use `gradient` for a multi-color fill:
-
-```tsx
-<Bloom gradient={["#ffdd7766", "#ffaacc77", "#cc88ff77"]}>
-  spring colors
-</Bloom>
-```
-
-Use `animated` to draw the highlight on mount:
-
-```tsx
-<Bloom animated>draws itself in</Bloom>
-<Bloom animated delay={0.5} duration={1.2}>slower, with a delay</Bloom>
 ```
 ## Props
 
